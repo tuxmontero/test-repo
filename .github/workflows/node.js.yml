@@ -42,4 +42,6 @@ jobs:
         npm run prettier
     - run: CI=true npm run test
     - run: npm run build
+    
+    - name: S3 Copy process
     - run: aws s3 cp build/ s3://fsl-test-repo/ --recursive
