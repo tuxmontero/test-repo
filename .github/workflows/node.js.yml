@@ -28,7 +28,13 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-  
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+          aws-access-key-id: ${{ secrets.S3_COPY }}
+          aws-secret-access-key: ${{ secrets.S3_COPY_KEY }}
+          aws-region: us-east-1
+          
     - run: npm install
     - run: npm run lint
     - run: |
@@ -36,3 +42,4 @@ jobs:
         npm run prettier
     - run: CI=true npm run test
     - run: npm run build
+    - run: aws --version
